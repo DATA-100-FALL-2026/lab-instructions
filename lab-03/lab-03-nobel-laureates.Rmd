@@ -17,7 +17,7 @@ link-citations: true
 ```{r setup, include = FALSE}
 knitr::opts_chunk$set(eval = TRUE)
 ```
-## Introduction
+# Introduction
 
 In January 2017, Buzzfeed published an article on why Nobel laureates show immigration is so important for American science. You can read the article [here](https://www.buzzfeednews.com/article/peteraldhous/immigration-and-science). In the article they show that while most living Nobel laureates in the sciences are based in the US, many of them were born in other countries. This is one reason why scientific leaders say that immigration is vital for progress. 
 
@@ -25,7 +25,7 @@ In this lab we will work with the data from this article to recreate some of the
 
 **Estimated time:** 90-120 minutes
 
-## Learning Goals
+# Learning Goals
 
 By the end of this lab, you will be able to:
 
@@ -36,7 +36,7 @@ By the end of this lab, you will be able to:
 - Create stacked/segmented bar plots
 - Interpret visualizations in context of real-world questions
 
-## Prerequisites
+# Prerequisites
 
 Before you begin, make sure you have:
 
@@ -49,7 +49,7 @@ Before you begin, make sure you have:
 
 ---
 
-## Understanding Merge Conflicts
+# Understanding Merge Conflicts
 
 As you work with Git and GitHub, you may occasionally encounter **merge conflicts**. While less common when working independently, it's important to understand what they are.
 
@@ -78,7 +78,7 @@ Their changes are here
   
   Step 2. Delete the `<<<`, `===`, and `>>>` markers
   
-  step 3. Save the file
+  Step 3. Save the file
   
   Step 4. Stage, commit, and push
 
@@ -163,7 +163,7 @@ Before diving into the exercises, let's get familiar with the data.
 
 **Question 1:** How many observations and how many variables are in the dataset? Use inline code in your answer.
 
-**Hint:** Use   backtick r nrow(nobel) backtick  for rows and  backtick r ncol(nobel) backtick for columns in your narrative text.
+**Hint:** Use `` `r nrow(nobel)` `` for rows and `` `r ncol(nobel)` `` for columns in your narrative text.
 
 **Your answer:** 
 
@@ -212,7 +212,7 @@ Create a new data frame called `nobel_living` that filters for:
 **Fill in the blanks below:**
 ```{r create-nobel-living, eval=FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
-nobel_living %
+nobel_living <- nobel %>%
   filter(
     !is.na(___),
     ___ != "org",
@@ -220,7 +220,7 @@ nobel_living %
   )
 ```
 
-**Verify your filtering:** Confirm that once you have filtered for these characteristics you are left with a data frame with 228 observations. Use inline code to check: ` nrow(nobel_living) `
+**Verify your filtering:** Confirm that once you have filtered for these characteristics you are left with a data frame with 228 observations. Use inline code to check: `` `r nrow(nobel_living)` ``
 
 **Your verification:** After filtering, nobel_living has ____ observations.
 
@@ -232,14 +232,14 @@ nobel_living %
 
 ... says the Buzzfeed article. Let's see if that's true.
 
-First, we'll create a new variable to identify whether the laureate was in the US when they won their prize. We'll use the `mutate()` function for this. The following pipeline mutates the `nobel_living` data frame by adding a new variable called `country_us`. We use an if statement to create this variable.
+First, we'll create a new variable to identify whether the laureate was in the US when they won their prize. We'll use the `mutate()` function for this. The following pipeline mutates the `nobel_living` data frame by adding a new variable called `country_us`. We use an if statement to create this variable, and reassign the result back to `nobel_living` so the new column is actually saved.
 
 ```{marginfigure}
 The `if_else()` function tests a condition. If TRUE, it returns the first value ("USA"); if FALSE, it returns the second value ("Other").
 ```
 
 ```{r create-country-us, eval = FALSE}
-nobel_living %>%
+nobel_living <- nobel_living %>%
   mutate(
     country_us = if_else(country == "USA", "USA", "Other")
   )
@@ -249,11 +249,12 @@ nobel_living %>%
 
 - If `country` equals `"USA"`, set `country_us` to `"USA"`
 - Otherwise, set `country_us` to `"Other"`
+- The `nobel_living <-` on the left saves the new column back into `nobel_living` — without it, `country_us` would only appear in the console output and would be lost, which would break every exercise after this one
 
 Next, we will limit our analysis to only the following categories: Physics, Medicine, Chemistry, and Economics.
 
 ```{r create-science-data, eval = FALSE}
-nobel_living_science  <- nobel_living %>%
+nobel_living_science <- nobel_living %>%
   filter(category %in% c("Physics", "Medicine", "Chemistry", "Economics"))
 ```
 
@@ -272,7 +273,7 @@ Create a faceted bar plot visualizing the relationship between the category of p
 -   Flip the coordinates so the bars are horizontal, not vertical
 
 **Build your visualization:**
-```{r nobel-bar-plot, eval=FALSE}
+```{r nobel-bar-plot, eval=FALSE, fig.alt="Faceted bar chart comparing US-based versus other-based Nobel laureates across prize categories"}
 # Remember to change eval=FALSE to eval=TRUE!
 ggplot(data = nobel_living_science, aes(x = ___)) +
   geom_bar() +
@@ -308,7 +309,7 @@ Create a new variable called `born_country_us` that has the value `"USA"` if the
 ```
 ```{r create-born-country, eval=FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
-nobel_living_science %
+nobel_living_science <- nobel_living_science %>%
   mutate(
     born_country_us = if_else(___ == "___", "USA", "Other")
   )
@@ -338,7 +339,7 @@ Add a second variable to your visualization from Exercise 3 based on whether the
 -   Each bar should have segments for whether the laureate was born in the US or not
 
 **Build your stacked bar chart:**
-```{r nobel-stacked-bar, eval=FALSE}
+```{r nobel-stacked-bar, eval=FALSE, fig.alt="Faceted, stacked bar chart showing US-based Nobel laureates segmented by birth country (US-born versus other) across prize categories"}
 # Remember to change eval=FALSE to eval=TRUE!
 ggplot(data = nobel_living_science, 
        aes(x = country_us, fill = ___)) +
@@ -395,7 +396,7 @@ nobel_living_science %>%
 
 ---
 
-## Common Errors and Troubleshooting
+# Common Errors and Troubleshooting
 
 **Data wrangling errors:**
 
@@ -414,7 +415,7 @@ nobel_living_science %>%
 **General issues:**
 
 - **Code chunk not running** → Make sure you changed `eval=FALSE` to `eval=TRUE`
-- **Inline code not working** → Use backticks with r 
+- **Inline code not working** → Wrap it in single backticks with an `r` right after the opening backtick, e.g. `` `r nrow(nobel)` ``
 - **Changes not on GitHub** → Remember to commit AND push
 
 ---
@@ -423,13 +424,15 @@ nobel_living_science %>%
 
 ---
 
-## Optional: Interested in How Buzzfeed Made Their Visualizations?
+# Optional: Interested in How Buzzfeed Made Their Visualizations?
 
 The plots in the Buzzfeed article are called waffle plots. You can find the code used for making these plots in Buzzfeed's GitHub repo (yes, they have one!) [here](https://buzzfeednews.github.io/2017-01-immigration-and-science/). 
 
 You're not expected to recreate them as part of your assignment, but you're welcome to explore for fun!
 
 ---
+
+# Submitting Your Work
 
 **To submit to Canvas:**
 
@@ -441,4 +444,4 @@ Step 3.  Download the PDF file from the Files pane
 
 Step 4.  Upload the PDF to Canvas
 
-**✓ Final Checkpoint:** Visit your GitHub repo one more time to confirm all your work is there. We will grade what we see in your repo on GitHub!
+**✓ Final Checkpoint:** Push your completed `.Rmd` to GitHub as your backup and confirm it's there. **The PDF you upload to Canvas is the basis for grading** — make sure every chunk ran without errors and all your answers show up in it before you submit.
