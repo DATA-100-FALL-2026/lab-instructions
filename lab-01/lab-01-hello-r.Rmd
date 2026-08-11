@@ -50,20 +50,20 @@ By the end of this lab, you will be able to:
 - ✅ You can access JupyterHub and RStudio
 - ✅ You have watched the "Meet the toolkit" lecture videos
 
-**If you haven't completed these prerequisites, stop here and complete them first!**
+**If you haven't completed these yet, take care of them before continuing** — the rest of this lab assumes they're done.
 
-# Getting Started
+## Getting Started
 
 **Important:** This lab should be completed in your **forked lab-instructions repository** that you set up at the beginning of the semester. If you haven't forked the repository yet, go back to the README in the lab-instructions repo and follow those instructions first.
 
-## Step 1: Navigate to the Lab
+### Step 1: Navigate to the Lab
 
 1. Open JupyterHub and launch RStudio
 2. Navigate to your `lab-instructions` repository
 3. Open the `Lab01` folder
 4. Open the file `lab-01-hello-r.Rmd`
 
-## Step 2: Verify Setup
+### Step 2: Verify Setup
 
 Before you begin, make sure:
 - The file opens in the RStudio editor (top left pane)
@@ -72,7 +72,7 @@ Before you begin, make sure:
 
 **If the Git pane shows the course organization name instead of yours, you need to fork the repository first!**
 
-## Step 3: Test Knit
+### Step 3: Test Knit
 
 Click the **Knit** button to make sure the document compiles without errors. You should see an HTML output.
 
@@ -94,7 +94,7 @@ The top portion of your R Markdown file (between the three dashed lines) is call
 
 Open the R Markdown (Rmd) file in your project, change the author name to your name, and knit the document.
 
-```{r yaml-raw-to-rendered, fig.fullwidth=TRUE, echo = FALSE}
+```{r yaml-raw-to-rendered, fig.fullwidth=TRUE, echo = FALSE, fig.alt="Screenshot comparing the raw YAML header text in an R Markdown file to how the title and author render at the top of the knitted document."}
 knitr::include_graphics("img/yaml-raw-to-rendered.png")
 ```
 
@@ -104,7 +104,7 @@ Then go to the Git pane in your RStudio.
 
 If you have made changes to your Rmd file, you should see it listed here. Click on it to select it in this list and then click on **Diff**. This shows you the *diff*erence between the last committed state of the document and its current state that includes your changes. If you're happy with these changes, write "Update author name" in the **Commit message** box and hit **Commit**.
 
-```{r update-author-name-commit, fig.fullwidth=TRUE, echo = FALSE}
+```{r update-author-name-commit, fig.fullwidth=TRUE, echo = FALSE, fig.alt="Screenshot of the RStudio Git commit dialog, showing the changed file checked, the diff view, a commit message box with 'Update author name' typed in, and the Commit button."}
 knitr::include_graphics("img/update-author-name-commit.png")
 ```
 
@@ -164,9 +164,11 @@ To find out more about the dataset, type the following in your Console: `?datasa
 
 **Pro tip:** A question mark before the name of any object will bring up its help file. This only works in the Console, not in your R Markdown document.
 
-# Exercises
+## Exercises
 
 1.  Based on the help file, how many rows and how many columns does the `datasaurus_dozen` file have? What are the variables included in the data frame? Add your responses to your lab report.
+
+**Your answer:** [type your answer here]
 
 Let's take a look at what these datasets are. To do so we can make a *frequency table* of the dataset variable:
 
@@ -203,7 +205,7 @@ Second, the assignment operator: `<-`, assigns the name `dino_data` to the filte
 
 Next, we need to visualize these data. We will use the `ggplot` function for this. Its first argument is the data you're visualizing. Next we define the `aes`thetic mappings. In other words, the columns of the data that get mapped to certain aesthetic features of the plot, e.g. the `x` axis will represent the variable called `x` and the `y` axis will represent the variable called `y`. Then, we add another layer to this plot where we define which `geom`etric shapes we want to use to represent each observation in the data. In this case we want these to be points, hence `geom_point`.
 
-```{r fig.fullwidth=TRUE}
+```{r fig.fullwidth=TRUE, fig.alt="Scatterplot of y versus x for the dino dataset, with points forming the outline of a dinosaur."}
 ggplot(data = dino_data, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
@@ -231,12 +233,12 @@ dino_data %>%
 
 **Step 1: Filter for star data**
 ```{r star-data, eval = FALSE}
-star_data %
+star_data <- datasaurus_dozen %>%
   filter(dataset == ___)
 ```
 
 **Step 2: Create the plot**
-```{r star-plot, fig.fullwidth=TRUE, eval = FALSE}
+```{r star-plot, fig.fullwidth=TRUE, eval = FALSE, fig.alt="UPDATE THIS: describe what your star-dataset scatterplot shows, for screen-reader accessibility."}
 ggplot(data = ___, mapping = aes(x = x, y = y)) +
   geom_point()
 ```
@@ -249,9 +251,9 @@ star_data %>%
 
 **Write your answers:**
 
-- The correlation coefficient for the star dataset is: 
+- The correlation coefficient for the star dataset is: [type your answer here]
 
-- Compared to the dino dataset (r = -0.06447185), the star dataset's correlation is: 
+- Compared to the dino dataset (r = -0.06447185), the star dataset's correlation is: [type your answer here]
 
 🧶 ✅ ⬆️ *This is another good place to pause, knit, commit changes with the commit message "Added answer for Ex 3", and push. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
@@ -264,7 +266,7 @@ star_data %>%
 # Your code here
 ```
 
-```{r circle-plot, fig.fullwidth=TRUE, eval = FALSE}
+```{r circle-plot, fig.fullwidth=TRUE, eval = FALSE, fig.alt="UPDATE THIS: describe what your circle-dataset scatterplot shows, for screen-reader accessibility."}
 # Your code here
 ```
 
@@ -274,11 +276,11 @@ star_data %>%
 
 **Write your answers:**
 
-- The correlation coefficient for the circle dataset is: 
+- The correlation coefficient for the circle dataset is: [type your answer here]
 
-- Compared to the dino dataset, the circle dataset's correlation is:
+- Compared to the dino dataset, the circle dataset's correlation is: [type your answer here]
 
-- What do you notice about the correlation coefficients for dino, star, and circle?
+- What do you notice about the correlation coefficients for dino, star, and circle? [type your answer here]
 
 🧶 ✅ ⬆️ *You should pause again, commit changes with the commit message "Added answer for Ex 4", and push. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards.*
 
@@ -288,7 +290,7 @@ Facet by the dataset variable, placing the plots in a 3 column grid, and don't a
 
 5.  Finally, let's plot all datasets at once. In order to do this we will make use of faceting.
 
-```{r all-viz, eval=FALSE, fig.fullwidth=TRUE}
+```{r all-viz, eval=FALSE, fig.fullwidth=TRUE, fig.alt="Grid of scatterplots, one per dataset in the Datasaurus Dozen, arranged in 3 columns and colored by dataset, with no legend."}
 ggplot(datasaurus_dozen, aes(x = x, y = y, color = dataset))+
   geom_point()+
   facet_wrap(~ dataset, ncol = 3) +
@@ -306,7 +308,7 @@ datasaurus_dozen %>%
 
 You're done with the data analysis exercises, but we'd like you to do two more things:
 
-```{r fig-resize-global, fig.margin = TRUE, echo = FALSE, fig.width=3}
+```{r fig-resize-global, fig.margin = TRUE, echo = FALSE, fig.width=3, fig.alt="Screenshot of the R Markdown 'Output Options' dialog with the Figures tab open, showing height and width fields for global figure sizing."}
 knitr::include_graphics("img/fig-resize-global.png")
 ```
 
@@ -314,13 +316,13 @@ knitr::include_graphics("img/fig-resize-global.png")
 
 Click on the gear icon in on top of the R Markdown document, and select "Output Options..." in the dropdown menu. In the pop up dialogue box go to the Figures tab and change the height and width of the figures, and hit OK when done. Then, knit your document and see how you like the new sizes. Change and knit again and again until you're happy with the figure sizes. Note that these values get saved in the YAML.
 
-```{r fig-resize-local, fig.margin = TRUE, echo = FALSE, fig.width=3}
+```{r fig-resize-local, fig.margin = TRUE, echo = FALSE, fig.width=3, fig.alt="Screenshot of a code chunk's gear icon menu in RStudio, showing fig.width and fig.height options for sizing a single figure."}
 knitr::include_graphics("img/fig-resize-local.png")
 ```
 
 You can also use different figure sizes for differen figures. To do so click on the gear icon within the chunk where you want to make a change. Changing the figure sizes added new options to these chunks: `fig.width` and `fig.height`. You can change them by defining different values directly in your R Markdown document as well.
 
-```{r theme-highlight, fig.margin = TRUE, echo = FALSE, fig.width=3}
+```{r theme-highlight, fig.margin = TRUE, echo = FALSE, fig.width=3, fig.alt="Screenshot of the R Markdown 'Output Options' General tab, showing dropdown menus for syntax highlighting and document theme."}
 knitr::include_graphics("img/theme-highlight.png")
 ```
 
@@ -335,3 +337,31 @@ Not sure how to use emojis on your computer? Maybe a teammate can help? Or you c
 ```
 
 🧶 ✅ ⬆️ *Yay, you're done! Commit all remaining changes, use the commit message "Done with Lab 1!* 💪*", and push. Make sure to commit and push all changed files so that your Git pane is cleared up afterwards. Before you wrap up the assignment, make sure all documents are updated on your GitHub repo.*
+
+---
+
+## Submitting Your Work
+
+Every lab has two required parts, both due by the deadline:
+
+1. **Push to GitHub** — your completed `.Rmd`, committed and pushed (covered above)
+2. **Upload a PDF to this lab's Canvas assignment** — see below
+
+### Generate Your PDF
+
+PDF generation trips people up more than the actual R code does — if it doesn't work on the first try, that's normal, not a sign you did something wrong.
+
+1. Click the **Knit** dropdown arrow (next to the Knit button)
+2. Select **Knit to PDF** (this uses the Tufte Handout format defined in the YAML)
+3. Wait for the PDF to generate
+4. Find `lab-01-hello-r.pdf` in the **Files** pane, check its box, then **More → Export...** to save it to your computer
+5. Upload that PDF to this lab's Canvas assignment
+
+**Troubleshooting:**
+
+- **"LaTeX not found" or "pdflatex not found":** Run `tinytex::install_tinytex()` in the R console, restart RStudio, and try knitting to PDF again
+- **Still not working?** Knit to HTML instead and use your browser's **Print → Save as PDF** option — that's a completely acceptable submission
+
+**If only one part works:** if you get the GitHub push or the PDF working but not both after trying the steps above, submit what you have by the deadline and email me — I'd rather see your progress than have a technical snag cost you credit.
+
+**Remember:** Submit BOTH to GitHub (your `.Rmd`) AND Canvas (the PDF). Both are required.
