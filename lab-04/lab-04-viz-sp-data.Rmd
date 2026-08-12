@@ -17,11 +17,11 @@ link-citations: true
 ```{r include = FALSE}
 knitr::opts_chunk$set(eval = FALSE)
 ```
-```{r fig.margin = TRUE, echo = FALSE, eval = TRUE}
+```{r fig.margin = TRUE, echo = FALSE, eval = TRUE, fig.alt = "Photo of comedian Mitch Hedberg performing stand-up comedy."}
 knitr::include_graphics("img/mitch-hedgeberg-lqd.jpg")
 ```
 
-## Introduction
+# Introduction
 
 Have you ever taken a road trip in the US and thought to yourself "I wonder what La Quinta means". Well, the late comedian [Mitch Hedberg](https://en.wikipedia.org/wiki/Mitch_Hedberg) thinks it's Spanish for *next to Denny's*.
 
@@ -33,7 +33,7 @@ The inspiration for this lab comes from a blog post by John Reiser on his *new j
 
 **Estimated time:** 90-120 minutes
 
-## Learning Goals
+# Learning Goals
 
 By the end of this lab, you will be able to:
 
@@ -45,7 +45,7 @@ By the end of this lab, you will be able to:
 - Calculate rates (locations per area)
 - Interpret spatial visualizations
 
-## Prerequisites
+# Prerequisites
 
 Before you begin, make sure you have:
 
@@ -260,7 +260,7 @@ Add a country variable to the La Quinta dataset. Use the `case_when()` function 
 # Remember to change eval=FALSE to eval=TRUE!
 laquinta <- laquinta %>%
   mutate(country = case_when(
-    state %in% state.abb     ~ "United States",
+    state %in% states$abbreviation ~ "United States",
     state %in% c("ON", "BC") ~ "___",
     state == "ANT"           ~ "___",
     state %in% c("AG", "QR", "CH", "NL", "VE", "PU", "SL") ~ "___"
@@ -269,7 +269,7 @@ laquinta <- laquinta %>%
 
 **Hint:** 
 
-- `state.abb` is a built-in R vector containing all US state abbreviations
+- `states$abbreviation` is the list of US state abbreviations you already loaded (including DC) — use this instead of R's built-in `state.abb` constant, which leaves DC out and would mislabel any DC location as a non-US country
 - Based on your research, fill in the country names (likely "Canada", "Colombia", and "Mexico")
 
 **Why do we need `laquinta <-`?**
@@ -286,10 +286,12 @@ Without the assignment, the code would create a new dataset with the `country` v
 ## Analyzing US Locations Only
 
 Going forward we will work with the data from the United States only. All Denny's locations are in the United States, so we don't need to worry about them. However we do need to filter the La Quinta dataset for locations in United States.
-```{r filter-us-laquinta, eval = FALSE}
-laquinta %>%
+```{r filter-us-laquinta, eval = TRUE}
+laquinta <- laquinta %>%
   filter(country == "United States")
 ```
+
+**Notice the `laquinta <-` here too** — same reasoning as Exercises 6 and 8. Without it, this filtered version would print once and disappear, and every exercise below would silently keep working with the *unfiltered* dataset (including the Canada/Mexico/Colombia locations from Exercise 8).
 
 ## Exercise 9
 
@@ -401,7 +403,7 @@ dn_lq <- bind_rows(dennys, laquinta)
 
 We can plot the locations of the two establishments using a scatter plot, and color the points by the establishment type. Note that the longitude is plotted on the x-axis and the latitude on the y-axis.
 
-```{r plot-all-locations, eval = FALSE}
+```{r plot-all-locations, eval = TRUE, fig.alt = "Scatterplot of Denny's and La Quinta locations across the United States, colored by establishment, with the points roughly outlining the shape of the country."}
 ggplot(dn_lq, mapping = aes(x = longitude, y = latitude, color = establishment)) +
   geom_point()
 ```
@@ -416,8 +418,9 @@ Filter the data for observations in North Carolina only, and recreate the plot. 
 
 **Create the filtered plot:**
 
-```{r nc-plot, eval = FALSE}
+```{r nc-plot, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Also fill in fig.alt above with a short description of what your finished plot shows
 dn_lq %>%
   filter(___ == "NC") %>%
   ggplot(mapping = aes(x = ___, y = ___, color = ___)) +
@@ -441,8 +444,9 @@ dn_lq %>%
 
 Now filter the data for observations in Texas only, and recreate the plot with an appropriate alpha level. Visually, does Mitch Hedberg's joke appear to hold here?
 
-```{r texas-plot, eval = FALSE}
+```{r texas-plot, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Also fill in fig.alt above with a short description of what your finished plot shows
 # Your code here (adapt from Exercise 11)
 ```
 
@@ -459,7 +463,7 @@ Now filter the data for observations in Texas only, and recreate the plot with a
 
 ---
 
-## Common Errors and Troubleshooting
+# Common Errors and Troubleshooting
 
 **Data wrangling errors:**
 
@@ -484,6 +488,7 @@ Now filter the data for observations in Texas only, and recreate the plot with a
 
 - **New variable not appearing in dataset** → Make sure you used `<-` to save the result back to the dataset name
 - **Error: "object has no column named 'country'"** → You forgot to assign the mutated dataset back with `<-`
+- **DC locations showing up with a missing/NA country** → If you used R's built-in `state.abb` instead of `states$abbreviation` in Exercise 8, DC will fall through `case_when()` uncaught, since `state.abb` doesn't include it
 
 ---
 
@@ -492,7 +497,7 @@ Now filter the data for observations in Texas only, and recreate the plot with a
 
 ---
 
-**To submit to Canvas:**
+# Submitting Your Work
 
 Step 1.  In RStudio, click the **Knit** dropdown menu (next to the Knit button)
 
@@ -502,4 +507,4 @@ Step 3.  Download the PDF file from the Files pane
 
 Step 4.  Upload the PDF to Canvas
 
-**✓ Final Checkpoint:** Visit your GitHub repo one more time to confirm all your work is there. We will grade what we see in your repo on GitHub!
+**✓ Final Checkpoint:** Visit your GitHub repo one more time to confirm all your work is there — this is your checkpoint/backup. Then double-check your downloaded PDF is complete and readable before uploading it to Canvas. **The PDF is the basis for grading.**
