@@ -149,8 +149,9 @@ Run `glimpse(Whickham)` in your Console to see the variables.
 Create appropriate visualizations for each variable.
 
 **For categorical variables (outcome and smoker):**
-```{r visualize-categorical, eval = FALSE}
+```{r visualize-outcome, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 
 # Outcome variable
 ggplot(data = Whickham, aes(x = ___)) +
@@ -160,6 +161,11 @@ ggplot(data = Whickham, aes(x = ___)) +
     x = "___",
     y = "___"
   )
+```
+
+```{r visualize-smoker, eval = FALSE, fig.alt = "___"}
+# Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 
 # Smoker variable
 ggplot(data = Whickham, aes(x = ___)) +
@@ -172,8 +178,9 @@ ggplot(data = Whickham, aes(x = ___)) +
 ```
 
 **For numerical variable (age):**
-```{r visualize-age, eval = FALSE}
+```{r visualize-age, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 ggplot(data = Whickham, aes(x = ___)) +
   geom_histogram(binwidth = ___) +
   labs(
@@ -210,8 +217,9 @@ I would expect that smokers would have
 Create a visualization depicting the relationship between smoking status and health outcome. Briefly describe the relationship, and evaluate whether this meets your expectations. Additionally, calculate the relevant conditional probabilities to help your narrative.
 
 **Part A: Create a visualization**
-```{r smoker-outcome-viz, eval = FALSE}
+```{r smoker-outcome-viz, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 ggplot(data = Whickham, aes(x = ___, fill = ___)) +
   geom_bar(position = "___") +
   labs(
@@ -274,7 +282,7 @@ Create a new variable called `age_cat` using the following scheme:
 **Use `case_when()` to create the categorical variable:**
 ```{r create-age-cat, eval = FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
-Whickham %
+Whickham <- Whickham %>%
   mutate(age_cat = case_when(
     age <= ___ ~ "18-44",
     age > ___ & age <= ___ ~ "45-64",
@@ -311,8 +319,9 @@ Whickham %>%
 Re-create the visualization depicting the relationship between smoking status and health outcome, faceted by `age_cat`. What changed? What might explain this change? 
 
 **Part A: Create the faceted visualization**
-```{r faceted-viz, eval = FALSE}
+```{r faceted-viz, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 ggplot(data = Whickham, aes(x = ___, fill = ___)) +
   geom_bar(position = "___") +
   facet_wrap(~___) +
@@ -450,3 +459,4 @@ Step 3.  Download the PDF file from the Files pane
 Step 4.  Upload the PDF to Canvas
 
 **✓ Final Checkpoint:** Visit your GitHub repo one more time to confirm all your work is there. We will grade what we see in your repo on GitHub!
+
