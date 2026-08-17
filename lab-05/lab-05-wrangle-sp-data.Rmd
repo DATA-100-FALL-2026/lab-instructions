@@ -17,7 +17,9 @@ link-citations: true
 ```{r include = FALSE}
 knitr::opts_chunk$set(eval = TRUE)
 ```
-```{r fig.margin = TRUE, echo = FALSE}
+```{r fig.margin = TRUE, echo = FALSE, fig.alt = "___"}
+# INSTRUCTOR TODO: replace "___" above with an accurate one-sentence description
+# of what this photo actually shows (screen-reader text) before publishing.
 knitr::include_graphics("img/mitch-hedgeberg-lqd.jpg")
 ```
 
@@ -153,15 +155,15 @@ Next we'll calculate the distance between all Denny's and all La Quinta location
 
 **Step 1:** There are 3 Denny's and 2 La Quinta locations in Alaska. (If you answered differently above, you might want to recheck your answers.)
 
-![](img/dennys-laquinta-sketches/dennys-laquinta-sketches.001.png){width="300px" height="300px"}
+<img src="img/dennys-laquinta-sketches/dennys-laquinta-sketches.001.png" width="300px" height="300px" alt="Sketch showing 3 Denny's location markers and 2 La Quinta location markers scattered on a simple map, not yet connected to each other.">
 
 **Step 2:** Let's focus on the first Denny's location. We'll need to calculate two distances for it: (1) distance between Denny's 1 and La Quinta 1 and (2) distance between Denny's 1 and La Quinta 2.
 
-![](img/dennys-laquinta-sketches/dennys-laquinta-sketches.002.png){width="300px" height="150px"}
+<img src="img/dennys-laquinta-sketches/dennys-laquinta-sketches.002.png" width="300px" height="150px" alt="Sketch showing the first Denny's location connected by two lines to both La Quinta locations, illustrating the two distances that need to be calculated from a single Denny's.">
 
 **Step 3:** Now let's consider all Denny's locations.
 
-![](img/dennys-laquinta-sketches/dennys-laquinta-sketches.003.png){width="300px" height="450px"}
+<img src="img/dennys-laquinta-sketches/dennys-laquinta-sketches.003.png" width="300px" height="450px" alt="Sketch showing all three Denny's locations, each connected by a line to both La Quinta locations, illustrating all six distance pairings that need to be calculated.">
 
 ## Exercise 3
 
@@ -334,8 +336,9 @@ dn_lq_ak_mindist <- dn_lq_ak %>%
 Describe the distribution of the distances between Denny's and the nearest La Quinta locations in Alaska. Also include an appropriate visualization and relevant summary statistics.
 
 **Create a visualization:**
-```{r visualize-ak-distances, eval = FALSE}
+```{r visualize-ak-distances, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 ggplot(data = dn_lq_ak_mindist, aes(x = ___)) +
   geom_histogram(binwidth = ___) +
   labs(
@@ -389,8 +392,9 @@ Repeat the same analysis for North Carolina:
   Step (v) visualize and describe the distribution of these shortest distances using appropriate summary statistics
 
 **Here's a template you can adapt from the Alaska code:**
-```{r nc-analysis, eval = FALSE}
+```{r nc-analysis, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what your plot shows!
 
 # (i) Filter for NC
 dn_nc <- dennys %>%
@@ -449,8 +453,9 @@ dn_lq_nc_mindist %>%
 Repeat the same analysis for Texas.
 
 **Adapt the template from Exercise 9, changing NC to TX:**
-```{r tx-analysis, eval = FALSE}
+```{r tx-analysis, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what your plot shows!
 # Your code here - adapt from Exercise 9
 ```
 
@@ -466,8 +471,9 @@ Repeat the same analysis for Texas.
 Repeat the same analysis for a state of your choosing, different than the ones we covered so far.
 
 **Which state did you choose?** _____
-```{r your-state-analysis, eval = FALSE}
+```{r your-state-analysis, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what your plot shows!
 # Your code here - adapt from Exercise 9
 ```
 
