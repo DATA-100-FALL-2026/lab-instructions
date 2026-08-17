@@ -101,7 +101,7 @@ The datasets we'll use are called `instructors` and `fisheries` from the **dsbox
 ## Part 1: Instructional Staff Employment Trends
 
 The American Association of University Professors (AAUP) is a nonprofit membership association of faculty and other academic professionals. [This report](https://www.aaup.org/sites/default/files/files/AAUP_Report_InstrStaff-75-11_apr2013.pdf) compiled by the AAUP shows trends in instructional staff employees between 1975 and 2011, and contains an image very similar to the one given below.
-```{r echo=FALSE, fig.fullwidth = TRUE}
+```{r echo=FALSE, fig.fullwidth = TRUE, fig.alt="A cluttered original chart from the AAUP report showing instructional staff employment trends by faculty type from 1975 to 2011, with unclear labels and hard-to-distinguish lines."}
 knitr::include_graphics("img/staff-employment.png")
 ```
 
@@ -132,7 +132,7 @@ But before we do so, a thought exercise: *How many rows will the long-format dat
 ---
 
 We do the wide to long conversion using a new function: `pivot_longer()`. The animation below shows how this function works, as well as its counterpart `pivot_wider()`.
-```{r tidyr-gif, echo=FALSE, out.width="80%"}
+```{r tidyr-gif, echo=FALSE, out.width="80%", fig.alt="Animated diagram illustrating how pivot_longer() reshapes columns of a wide data frame into rows of a long data frame, and how pivot_wider() reverses the process."}
 # For HTML output (keeps the GIF)
 if (knitr::is_html_output()) {
   knitr::include_graphics("img/tidyr-longer-wider.gif")
@@ -183,7 +183,7 @@ staff_long
 ## Creating the Line Plot
 
 Now let's plot it as a line plot. A possible approach for creating a line plot where we color the lines by faculty type is the following:
-```{r plot-staff-first-attempt, fig.width = 10, fig.fullwidth = TRUE}
+```{r plot-staff-first-attempt, fig.width = 10, fig.fullwidth = TRUE, fig.alt="Line plot of instructional staff percentage by year, with lines colored by faculty type but not grouped, producing a warning and a jumbled plot."}
 staff_long %>%
   ggplot(aes(x = year, y = value, color = faculty_type)) +
   geom_line()
@@ -192,7 +192,7 @@ staff_long %>%
 **What happened?** You'll notice this results in a warning message about groups. This is because ggplot doesn't know that each faculty type should be its own line.
 
 We can fix this using the `group` aesthetic:
-```{r plot-staff-with-group, fig.width = 10, fig.fullwidth = TRUE}
+```{r plot-staff-with-group, fig.width = 10, fig.fullwidth = TRUE, fig.alt="Line plot of instructional staff percentage by year, with one connected, correctly colored line per faculty type."}
 staff_long %>%
   ggplot(aes(x = year, 
              y = value, 
@@ -216,7 +216,7 @@ staff_long %>%
 Include the line plot you made above in your report and make sure the figure width is large enough to make it legible. Also add a title, improve the axis labels, and fix the legend label.
 
 **Add these improvements to your plot:**
-```{r improved-staff-plot, fig.width = 10, fig.fullwidth = TRUE, eval = FALSE}
+```{r improved-staff-plot, fig.width = 10, fig.fullwidth = TRUE, eval = FALSE, fig.alt="Improved line plot of instructional staff percentage by year and faculty type, with a descriptive title and clear axis and legend labels."}
 # Remember to change eval=FALSE to eval=TRUE!
 staff_long %>%
   ggplot(aes(x = year, 
@@ -311,7 +311,7 @@ annotate("text", x = 2005, y = 40, label = "Part-time faculty rising")
 ```
 
 **Your improved visualization:**
-```{r storytelling-plot, fig.width = 10, fig.fullwidth = TRUE, eval = FALSE}
+```{r storytelling-plot, fig.width = 10, fig.fullwidth = TRUE, eval = FALSE, fig.alt="Redesigned line plot emphasizing the rise of part-time faculty relative to other instructional staff types over time."}
 # Remember to change eval=FALSE to eval=TRUE!
 # Your code here - build on your Exercise 1 code
 ```
@@ -329,7 +329,7 @@ annotate("text", x = 2005, y = 40, label = "Part-time faculty rising")
 Fisheries and Aquaculture Department of the Food and Agriculture Organization of the United Nations collects data on fisheries production of countries. [This Wikipedia page](https://en.wikipedia.org/wiki/Fishing_industry_by_country) lists fishery production of countries for 2016. For each country tonnage from capture and aquaculture are listed. Note that countries whose total harvest was less than 100,000 tons are not included in the visualization.
 
 A researcher shared with you the following visualization they created based on these data:
-```{r echo=FALSE, fig.fullwidth = TRUE}
+```{r echo=FALSE, fig.fullwidth = TRUE, fig.alt="A cluttered original bar chart of 2016 fisheries production by country, with overlapping labels, an unordered category axis, and an ineffective color scheme."}
 knitr::include_graphics("img/fisheries.png")
 ```
 
@@ -424,7 +424,7 @@ labs(title = "...", x = "...", y = "...", fill = "...")
 ```
 
 **Your improved visualization:**
-```{r improved-fisheries-plot, fig.width = 8, fig.height = 10, eval = FALSE}
+```{r improved-fisheries-plot, fig.width = 8, fig.height = 10, eval = FALSE, fig.alt="Redesigned horizontal bar chart of fisheries production by country, ordered by total tonnage with clear labels and a colorblind-friendly palette."}
 # Remember to change eval=FALSE to eval=TRUE!
 # Your code here
 ```
