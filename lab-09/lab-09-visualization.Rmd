@@ -1,0 +1,303 @@
+---
+title: "Lab 09 - Conveying the right message through visualisation"
+author: "Your Name"
+output: 
+  tufte::tufte_handout:
+    latex_engine: xelatex
+    highlight: pygments
+    keep_tex: true
+  tufte::tufte_html:
+    css: ../lab.css
+    tufte_variant: "envisioned"
+    highlight: pygments
+link-citations: yes
+---
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(eval = TRUE)
+```
+
+## Introduction
+
+In this lab our goal is to reconstruct and improve a data visualization about COVID-19 and mask wearing. You'll see how the same data can tell very different stories depending on how it's visualized.
+
+**This is a short, focused lab** where you'll practice critical thinking about data visualization.
+
+**Estimated time:** 45-60 minutes
+
+## Learning Goals
+
+By the end of this lab, you will be able to:
+
+- Critique visualizations that misrepresent data
+- Identify misleading elements in data visualizations
+- Create data frames manually using `tribble()`
+- Improve data visualizations to better convey accurate information
+- Make design choices that enhance honesty and clarity
+
+## Prerequisites
+
+Before you begin, make sure you have:
+
+- ✅ Completed Labs 01-08
+- ✅ Reviewed lectures on data visualization best practices
+- ✅ Understand principles of honest data representation
+- ✅ Forked the lab-instructions repository
+
+---
+
+# Getting Started
+
+Navigate to your forked `lab-instructions` repository in JupyterHub, open the `Lab09` folder, and open the R Markdown document `lab-09.Rmd`.
+
+## Verify Your Setup
+
+Before proceeding:
+
+Step 1. Open `lab-09.Rmd` in RStudio
+
+Step 2. Check that the Git pane shows YOUR username (not the course organization)
+
+Step 3. Click **Knit** to make sure the document compiles
+
+## Warm Up
+
+**Step 1:** Update the YAML, changing the author name to your name.
+
+**Step 2:** Knit the document.
+
+**Step 3:** Commit your changes with message "Updated author name".
+
+**Step 4:** Push to GitHub and verify the changes are visible in your repo.
+
+🧶 ✅ ⬆️ **Knit, commit with message "Updated author name", and push your changes.**
+
+---
+
+## Packages
+
+We'll use the **tidyverse** package for data wrangling and visualisation. This package is already installed for you. You can load it by running the following in your Console:
+```{r load-packages, message = FALSE}
+library(tidyverse)
+```
+
+## Data
+
+In this lab you'll construct the dataset yourself! This is an important skill - sometimes you need to manually create data based on information you see in visualizations or reports.
+
+---
+
+# Exercises
+
+## Analyzing a Misleading Visualization
+
+The following visualization was shared [on Twitter](https://twitter.com/JonBoeckenstedt/status/1291602888376999936) as "extraordinarily misleading".
+```{r misleading-viz, fig.fullwidth = TRUE, echo = FALSE}
+knitr::include_graphics("img/masks-v-nomasks.png")
+```
+
+**Before you begin coding, take a few minutes to study this visualization carefully.**
+
+**Think about:**
+
+- What story does this visualization appear to tell?
+- What design choices make it misleading?
+- What would an honest version look like?
+
+---
+
+## Exercise 1
+
+Create a data frame that can be used to re-construct this visualization. You may need to estimate some of the numbers from the chart - that's okay, approximate values are fine.
+
+**Planning your data frame:**
+
+Before writing code, answer these questions:
+
+- How many rows will you need? 
+- How many columns will you need? 
+- What will you call your variables? 
+
+**Creating data with `tribble()`**
+
+The `tribble()` function lets you create small data frames by typing the data directly. Here's an example:
+```{r tribble-example, echo = FALSE}
+example_df <- tribble(
+  ~date, ~count,
+  "1/1/2020", 15,
+  "2/1/2020", 20,
+  "3/1/2020", 22,
+)
+```
+```{r show-example}
+example_df
+```
+
+The code to create this is:
+```{r ref.label="tribble-example", eval = FALSE}
+```
+
+**How `tribble()` works:**
+
+- Column names start with `~`
+- Each row is on its own line
+- Commas separate values
+- Last row doesn't need a comma
+
+**Your turn - create the mask data:**
+```{r create-mask-data, eval = FALSE}
+# Remember to change eval=FALSE to eval=TRUE!
+mask_data <- tribble(
+  ~county, ~maskpolicy, ~deaths,
+  "Kansas", "___", ___,
+  "Kansas", "___", ___,
+  # Add more rows as needed
+)
+```
+
+**Hints:**
+
+- You need data for Kansas counties with masks and without masks
+- Look at the original visualization to estimate the death counts
+- You might want columns for: county, mask policy (yes/no), and deaths
+
+**Verify your data:**
+```{r check-data, eval = FALSE}
+# Remember to change eval=FALSE to eval=TRUE!
+mask_data
+```
+
+🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercise 1", and push your changes.**
+
+---
+
+## Exercise 2
+
+Make a visualization that more accurately (and honestly) tells the story.
+
+**Think about:**
+
+- What type of plot would be most honest?
+- How should you represent the two groups (mask vs. no mask)?
+- What scales should you use?
+- What labels would make the story clear?
+
+**Create your improved visualization:**
+```{r improved-viz, eval = FALSE}
+# Remember to change eval=FALSE to eval=TRUE!
+ggplot(data = ___, aes(x = ___, y = ___, fill = ___)) +
+  geom__() +
+  labs(
+    title = "___",
+    x = "___",
+    y = "___",
+    fill = "___"
+  )
+```
+
+**Consider these options:**
+
+- Bar plot with side-by-side bars: `geom_col(position = "dodge")`
+- Bar plot with consistent y-axis starting at 0
+- Different arrangement of variables (mask policy on x-axis vs. using color)
+
+---
+
+## Exercise 3
+
+What message is more clear in your visualization than it was in the original visualization?
+
+**Compare the two visualizations:**
+
+**Original visualization suggests:** 
+
+
+
+**Your improved visualization shows:**
+
+
+
+**What specific design choices made the difference?**
+
+
+
+🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 2-3", and push your changes.**
+
+---
+
+## Exercise 4
+
+What, if any, useful information do these data and your visualization tell us about mask wearing and COVID? 
+
+**Important:** Try to set aside what you already know about mask wearing and focus only on what this visualization tells us. Then feel free to comment on whether that lines up with what you know about mask wearing.
+
+**What the data/visualization tells us:**
+
+
+
+**What the data/visualization does NOT tell us:**
+
+
+
+**Does this align with what you know about mask wearing?**
+
+
+**What additional information would you need to draw stronger conclusions?**
+
+
+
+🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercise 4", and push your changes.**
+
+---
+
+## Common Errors and Troubleshooting
+
+**tribble() errors:**
+
+- **Error: "unexpected symbol"** → Make sure each column name has a `~` before it
+- **Error: "unexpected input"** → Check that you have commas between values
+- **Data looks wrong** → Remember: each row is a horizontal line, values separated by commas
+
+**Visualization errors:**
+
+- **Bars starting at wrong value** → Make sure y-axis starts at 0 for honest comparison
+- **Can't see both groups** → Try `position = "dodge"` for side-by-side bars
+- **Legend unclear** → Use descriptive labels in `labs(fill = "...")`
+
+**General issues:**
+
+- **Code chunk not running** → Make sure you changed `eval=FALSE` to `eval=TRUE`
+- **Variables not found** → Check spelling and capitalization of variable names
+
+---
+
+## Reflection
+
+**Key takeaways from this lab:**
+
+This lab demonstrates how visualization design choices can dramatically change the message data conveys. The original visualization used misleading elements such as:
+- Truncated y-axis that exaggerated differences
+- Possibly cherry-picked time periods
+- Unclear labeling
+- Design choices that emphasized one narrative over accuracy
+
+**Principles for honest data visualization:**
+
+- Always start numeric axes at zero (or clearly indicate if you don't)
+- Use consistent scales for comparisons
+- Provide complete context and time periods
+- Make design choices that prioritize clarity and accuracy over drama
+- Be transparent about data sources and limitations
+
+---
+
+**To submit to Canvas:**
+
+Step 1.  In RStudio, click the **Knit** dropdown menu (next to the Knit button)
+
+Step 2.  Select **Knit to tufte_handout** to generate a PDF
+
+Step 3.  Download the PDF file from the Files pane
+
+Step 4.  Upload the PDF to Canvas
+
+**✓ Final Checkpoint:** Visit your GitHub repo one more time to confirm all your work is there. We will grade what we see in your repo on GitHub!
