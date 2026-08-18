@@ -145,7 +145,7 @@ Before we start scraping, let's talk about ethics and best practices:
 - Give credit to data sources
 - Be aware that website structure can change
 
-**For this lab:** The University of Edinburgh allows scraping of this public collection, but we should still be respectful. We'll add delays between requests to avoid overwhelming their server.
+**For this lab:** The University of Edinburgh allows scraping of this public collection, but we should still be respectful. We'll add delays between requests to avoid overwhelming their server, and we'll scrape a generous but reasonable sample of pages rather than the entire collection.
 
 ## Packages
 
@@ -324,37 +324,28 @@ ggplot(data = uoe_art, aes(x = ___)) +
 
 ## Exercise 12
 
-Find which piece has the out of the ordinary year and go to its page on the art collection website to find the correct year for it. Can you tell why our code didn't capture the correct year information? Correct the error in the data frame and visualize the data again.
+Your histogram from Exercise 11 probably shows a small cluster of pieces that look much older than the rest of the collection. Before assuming this is a data error, let's investigate it - not every extreme value in a dataset is a mistake!
 
-**Find the problematic observation:**
-```{r find-outlier, eval = FALSE}
+**Filter for the oldest pieces in the collection:**
+```{r find-old-pieces, eval = FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
+# Pick a reasonable cutoff based on where your histogram's tail begins
 uoe_art %>%
-  filter(year < 1000 | year > 2030)  # Look for unreasonable years
+  filter(year < ___) %>%
+  arrange(year)
 ```
 
-**Visit the link for this piece and find the correct year:** 
+**Visit the links for two or three of these oldest pieces on the art collection website.**
 
-**Why didn't our code capture it correctly?**
+**Are these data errors, or are they legitimate pieces? What are they?** (Hint: look closely at the titles - many of them describe the same kind of object.)
 
 
 
-**Correct the error:**
-```{r fix-year, eval = FALSE}
-# Remember to change eval=FALSE to eval=TRUE!
-uoe_art <- uoe_art %>%
-  mutate(year = if_else(
-    ___ == "___",          # Condition: if title equals the problematic one
-    ___,                    # Then: set year to correct value
-    ___                     # Else: keep original year
-  ))
-```
+**Why would a 20th/21st-century art college's collection contain objects with dates this old?**
 
-**Recreate the histogram to verify the fix:**
-```{r verify-fix, eval = FALSE}
-# Remember to change eval=FALSE to eval=TRUE!
-# Your histogram code from Exercise 11
-```
+
+
+🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercise 12", and push your changes.**
 
 ---
 
@@ -376,12 +367,11 @@ uoe_art %>%
 
 
 
-
 **Why might the university have so many of their pieces?**
 
 
 
-🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 12-13", and push your changes.**
+🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercise 13", and push your changes.**
 
 ---
 
