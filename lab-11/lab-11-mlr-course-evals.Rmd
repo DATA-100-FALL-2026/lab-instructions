@@ -45,8 +45,8 @@ Before you begin, make sure you have:
 
 -   ✅ **Completed Lab 10** (this is essential!)
 -   ✅ Watched lectures on multiple regression
--   ✅ Understand single predictor regression
--   ✅ Understand the concepts of R² and adjusted R²
+-   ✅ Understand single predictor regression (Lab 10, Exercises 4-8)
+-   ✅ Understand the concepts of R² and adjusted R² (Lab 10, Exercise 6)
 -   ✅ Forked the lab-instructions repository
 
 ------------------------------------------------------------------------
@@ -75,7 +75,7 @@ Step 3. Click **Knit** to make sure the document compiles
 
 **Step 4:** Push to GitHub and verify the changes are visible in your repo.
 
-🧶 ✅ ⬆️ **Knit, commit with message "Completed warm up", and push your changes.**
+🧶 ✅ ⬆️ **Knit, commit with message "Updated author name", and push your changes.**
 
 ------------------------------------------------------------------------
 
@@ -110,7 +110,7 @@ glimpse(evals)
 
 **How many observations are in the dataset?** Use inline code to report.
 
-**Your answer:** The dataset has \_\_\_\_\_ observations.
+**Your answer:** The dataset has _____ observations.
 
 **✓ Checkpoint:** You should see 463 observations and 23 variables.
 
@@ -139,9 +139,9 @@ glance(score_bty_fit)
 
 $$\widehat{score} = \_\_\_ + \_\_\_ \times bty\_avg$$
 
-**R² value:** \_\_\_\_\_
+**R² value:** _____
 
-**Adjusted R² value:** \_\_\_\_\_
+**Adjusted R² value:** _____
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 1-2", and push your changes.**
 
@@ -170,9 +170,9 @@ glance(score_bty_gen_fit)
 
 $$\widehat{score} = \_\_\_ + \_\_\_ \times bty\_avg + \_\_\_ \times gendermale$$
 
-**R² value:** \_\_\_\_\_
+**R² value:** _____
 
-**Adjusted R² value:** \_\_\_\_\_
+**Adjusted R² value:** _____
 
 ------------------------------------------------------------------------
 
@@ -182,15 +182,15 @@ Interpret the slopes and intercept of `score_bty_gen_fit` in context of the data
 
 **Interpret the intercept:**
 
-The intercept represents
+The intercept represents _______________________________________________________
 
 **Interpret the slope for bty_avg:**
 
-Holding gender constant, for every one unit increase in beauty rating, \_\_\_\_\_\_\_
+Holding gender constant, for every one unit increase in beauty rating, _______
 
 **Interpret the slope for gendermale:**
 
-Holding beauty rating constant, male professors are expected to score \_\_\_\_\_\_\_\_
+Holding beauty rating constant, male professors are expected to score ________
 
 **Important:** In multiple regression, we interpret each coefficient "holding all other variables constant."
 
@@ -202,7 +202,7 @@ What percent of the variability in `score` is explained by the model `score_bty_
 
 **Use the R² value from Exercise 3.**
 
-Approximately \_\_\_\_\_% of the variability in professor evaluation scores is explained by beauty rating and gender.
+Approximately _____% of the variability in professor evaluation scores is explained by beauty rating and gender.
 
 ------------------------------------------------------------------------
 
@@ -240,11 +240,11 @@ For two professors who received the same beauty rating, which gender tends to ha
 
 If the coefficient is positive: Male professors tend to have higher scores. If the coefficient is negative: Female professors tend to have higher scores.
 
-**The coefficient is:** \_\_\_\_\_ (positive/negative)
+**The coefficient is:** _____ (positive/negative)
 
 **Therefore:**
 
-**By how much?** \_\_\_\_\_
+**By how much?** _____
 
 ------------------------------------------------------------------------
 
@@ -256,7 +256,7 @@ How does the relationship between beauty and evaluation score vary between male 
 
 **Your answer:**
 
-The relationship between beauty and evaluation score \_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_ (does / does not) vary between male and female professors because \_\_\_\_\_\_\_\_\_\_
+The relationship between beauty and evaluation score ____________________ (does / does not) vary between male and female professors because __________
 
 **Hint:** In this model, both genders have the same slope for bty_avg. The lines are parallel!
 
@@ -268,15 +268,15 @@ How do the adjusted R² values of `score_bty_gen_fit` and `score_bty_fit` compar
 
 **Compare the adjusted R² values:**
 
-**score_bty_fit adjusted R²:** \_\_\_\_\_ (from Exercise 2)
+**score_bty_fit adjusted R²:** _____ (from Exercise 2)
 
-**score_bty_gen_fit adjusted R²:** \_\_\_\_\_ (from Exercise 3)
+**score_bty_gen_fit adjusted R²:** _____ (from Exercise 3)
 
-**Difference:** \_\_\_\_\_
+**Difference:** _____
 
 **Interpretation:**
 
-The adjusted R² increased/decreased by \_\_\_\_\_ when we added gender to the model. This tells us that gender \_\_\_\_\_\_
+The adjusted R² increased/decreased by _____ when we added gender to the model. This tells us that gender ______
 
 **Note:** Adjusted R² accounts for the number of predictors, so it's better for comparing models with different numbers of predictors.
 
@@ -286,17 +286,17 @@ The adjusted R² increased/decreased by \_\_\_\_\_ when we added gender to the m
 
 Compare the slopes of `bty_avg` under the two models (`score_bty_fit` and `score_bty_gen_fit`). Has the addition of `gender` to the model changed the parameter estimate (slope) for `bty_avg`?
 
-**Slope of bty_avg in score_bty_fit:** \_\_\_\_\_ (from Exercise 2)
+**Slope of bty_avg in score_bty_fit:** _____ (from Exercise 2)
 
-**Slope of bty_avg in score_bty_gen_fit:** \_\_\_\_\_ (from Exercise 3)
+**Slope of bty_avg in score_bty_gen_fit:** _____ (from Exercise 3)
 
 **Has it changed?**
 
-The slope has changed/not changed. The difference is \_\_\_\_\_.
+The slope has changed/not changed. The difference is _____.
 
 **Why might this happen?**
 
-**Hint:** If beauty and gender are related (e.g., if male and female professors have different average beauty ratings), adding gender can change the bty_avg coefficient.
+**Hint:** If beauty and gender are related (e.g., if male and female professors have different average beauty ratings), adding gender can change the bty_avg coefficient. Statisticians call this **confounding** (or, when it involves the relationship among predictors themselves, **multicollinearity**) — a predictor's estimated effect shifts because it's correlated with another predictor in the model, not because the underlying relationship actually changed.
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 7-10", and push your changes.**
 
@@ -327,23 +327,31 @@ $$\widehat{score} = \_\_\_ + \_\_\_ \times bty\_avg + \_\_\_ \times ranktenuretr
 
 **Interpret the intercept:**
 
-For teaching faculty with a beauty rating of 0, the expected evaluation score is \_\_\_\_\_.
+For teaching faculty with a beauty rating of 0, the expected evaluation score is _____.
 
 **Interpret the slope for bty_avg:**
 
-Holding rank constant, for every one unit increase in beauty rating, \_\_\_\_\_\_\_\_
+Holding rank constant, for every one unit increase in beauty rating, ________
 
 **Interpret the slope for ranktenuretrack:**
 
-Holding beauty rating constant, tenure track faculty are expected to score \_\_\_\_
+Holding beauty rating constant, tenure track faculty are expected to score ____
 
 **Interpret the slope for ranktenured:**
 
-Holding beauty rating constant, tenured faculty are expected to score \_\_\_\_\_\_\_\_
+Holding beauty rating constant, tenured faculty are expected to score ________
 
-**Adjusted R² for this model:** \_\_\_\_\_
+**Adjusted R² for this model:** _____
 
-**How does this compare to score_bty_gen_fit?**
+**How does this compare to score_bty_gen_fit?** _______________________________________________________
+
+**Putting it all together:** Rank all three models you've fit in this lab — `score_bty_fit`, `score_bty_gen_fit`, and `score_bty_rank_fit` — by adjusted R², from best to worst.
+
+**Ranking (best to worst adjusted R²):** _____________________________________________
+
+**Which model would you recommend using, and why?** Consider not just adjusted R², but also interpretability — is the model with the highest adjusted R² necessarily the most useful one to explain to someone unfamiliar with the data?
+
+**Your answer:** _______________________________________________________
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercise 11", and push your changes.**
 
