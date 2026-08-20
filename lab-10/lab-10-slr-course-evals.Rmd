@@ -75,7 +75,7 @@ Step 3. Click **Knit** to make sure the document compiles
 
 **Step 4:** Push to GitHub and verify the changes are visible in your repo.
 
-🧶 ✅ ⬆️ **Knit, commit with message "Completed warm up", and push your changes.**
+🧶 ✅ ⬆️ **Knit, commit with message "Updated author name", and push your changes.**
 
 ---
 
@@ -436,7 +436,7 @@ glance(score_rank_relevel_fit)
 
 **Write the linear model equation:**
 
-$$\widehat{score} = \_\_\_ + \_\_\_ \times rankreleveltea ching + \_\_\_ \times rankreleveltenured$$
+$$\widehat{score} = \_\_\_ + \_\_\_ \times rank\_relevelteaching + \_\_\_ \times rank\_releveltenured$$
 
 **Interpret the intercept (now for tenure track faculty):**
 
