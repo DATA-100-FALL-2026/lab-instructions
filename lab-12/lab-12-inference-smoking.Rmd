@@ -3,14 +3,14 @@ title: "Lab 12 - Smoking during pregnancy"
 subtitle: "Simulation based inference"
 author: "Your Name"
 output: 
-  tufte::tufte_html:
-    tufte_variant: "envisioned"
-    highlight: pygments
-    css: ../lab.css
   tufte::tufte_handout:
     latex_engine: xelatex
     highlight: pygments
     keep_tex: true
+  tufte::tufte_html:
+    tufte_variant: "envisioned"
+    highlight: pygments
+    css: ../lab.css
 link-citations: yes
 ---
 ```{r include=FALSE}
@@ -22,6 +22,8 @@ knitr::opts_chunk$set(eval = FALSE)
 In 2004, the state of North Carolina released a large data set containing information on births recorded in this state. This data set is useful to researchers studying the relation between habits and practices of expectant mothers and the birth of their children. We will work with a random sample of observations from this data set.
 
 In this lab, you'll use simulation-based inference methods to conduct hypothesis tests and construct confidence intervals. This approach uses bootstrapping to create null distributions and sampling distributions without relying on mathematical formulas.
+
+**This lab builds on the hypothesis testing and confidence interval concepts from earlier labs.** Make sure you're comfortable with the logic of p-values and confidence intervals (conditions, null vs. alternative hypotheses, interpreting "statistically significant") before diving in — the mechanics here are new (bootstrapping/permutation via `infer`), but the reasoning is the same.
 
 **Estimated time:** 90-120 minutes
 
@@ -47,7 +49,7 @@ Before you begin, make sure you have:
 - ✅ Understand p-values and significance levels
 - ✅ Forked the lab-instructions repository
 
----
+------------------------------------------------------------------------
 
 # Getting Started
 
@@ -75,7 +77,7 @@ Step 3. Click **Knit** to make sure the document compiles
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed warm up", and push your changes.**
 
----
+------------------------------------------------------------------------
 
 ## Packages
 
@@ -90,9 +92,9 @@ library(openintro)
 
 The data can be found in the **openintro** package, and it's called `ncbirths`. Since the dataset is distributed with the package, we don't need to load it separately; it becomes available to us when we load the package. You can find out more about the dataset by inspecting its documentation, which you can access by running `?ncbirths` in the Console or using the Help menu in RStudio to search for `ncbirths`. You can also find this information [here](https://www.openintro.org/data/index.php?data=ncbirths).
 
-**✓ Checkpoint:** Run `glimpse(ncbirths)` in your Console to verify the data loaded correctly.
+**✓ Checkpoint:** Run `glimpse(ncbirths)` in your Console to verify the data loaded correctly. You should see **1,000 observations and 13 variables**.
 
----
+------------------------------------------------------------------------
 
 ## Set a Seed!
 
@@ -106,7 +108,7 @@ set.seed(12345)
 
 **Choose any number** - just make sure you use the same seed throughout the entire lab.
 
----
+------------------------------------------------------------------------
 
 # Exercises
 
@@ -129,7 +131,7 @@ glimpse(ncbirths)
 
 There are _____ cases in our sample.
 
----
+------------------------------------------------------------------------
 
 ## Exercise 2
 
@@ -161,8 +163,9 @@ ncbirths %>%
 
 
 **Check for outliers in key variables:**
-```{r check-outliers, eval = FALSE}
+```{r check-outliers, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 
 # Boxplot for weight
 ggplot(data = ncbirths, aes(y = ___)) +
@@ -178,7 +181,7 @@ ggplot(data = ncbirths, aes(y = ___)) +
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 1-2", and push your changes.**
 
----
+------------------------------------------------------------------------
 
 ## Part 1: Baby Weights
 
@@ -195,7 +198,7 @@ We want to evaluate whether the average weight of Caucasian babies has changed s
 
 Note that this is a **two-sided test** because we're testing for any change (could be higher or lower).
 
----
+------------------------------------------------------------------------
 
 ## Exercise 3
 
@@ -217,7 +220,7 @@ mean_weight_white
 
 **How does this compare to 7.43 pounds?** 
 
----
+------------------------------------------------------------------------
 
 ## Exercise 4
 
@@ -251,8 +254,9 @@ There are _____ observations. Is this large enough?
 
 **Conclusion: Are conditions satisfied?** 
 
+*(You'll check these same three conditions again in Exercises 9 and 13 — once you've reasoned through independence, sample size, and random sampling here, you can reference this answer and just note whether anything changes for the new variable/subgroup.)*
 
----
+------------------------------------------------------------------------
 
 ## Exercise 5
 
@@ -271,8 +275,9 @@ Step 3. Shift the distribution to center at the null value (7.43)
 Step 4. See how extreme our observed mean is
 
 **Run the hypothesis test:**
-```{r hypothesis-test-weight, eval = FALSE}
+```{r hypothesis-test-weight, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 
 # Calculate observed statistic (difference from null)
 obs_stat <- ncbirths_white %>%
@@ -316,7 +321,7 @@ In context:
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 3-5", and push your changes.**
 
----
+------------------------------------------------------------------------
 
 ## Part 2: Baby Weight vs. Smoking
 
@@ -325,8 +330,9 @@ Consider the possible relationship between a mother's smoking habit and the weig
 ## Exercise 6
 
 Make side-by-side boxplots displaying the relationship between `habit` and `weight`. What does the plot highlight about the relationship between these two variables?
-```{r boxplot-habit-weight, eval = FALSE}
+```{r boxplot-habit-weight, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 ggplot(data = ncbirths, aes(x = ___, y = ___)) +
   geom_boxplot() +
   labs(
@@ -344,7 +350,7 @@ ggplot(data = ncbirths, aes(x = ___, y = ___)) +
 
 
 
----
+------------------------------------------------------------------------
 
 ## Exercise 7
 
@@ -379,7 +385,7 @@ Difference: _____ pounds
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 6-7", and push your changes.**
 
----
+------------------------------------------------------------------------
 
 ## Exercise 8
 
@@ -395,17 +401,11 @@ Write the hypotheses for testing if the average weights of babies born to smokin
 
 **Hint:** Since we're testing for "different" (not specifically higher or lower), this is a two-sided test.
 
----
+------------------------------------------------------------------------
 
 ## Exercise 9
 
-Are the conditions necessary for conducting simulation-based inference satisfied? Explain your reasoning.
-
-**Check conditions:**
-
-**Independence:**
-
-
+Are the conditions necessary for conducting simulation-based inference satisfied? Explain your reasoning, noting anything that's different here from Exercise 4 (e.g., you now have two groups instead of one).
 
 **Sample size in each group:**
 ```{r check-habit-counts, eval = FALSE}
@@ -419,22 +419,18 @@ Smokers: _____ observations
 
 **Are these large enough?** 
 
-
-**Random sampling:**
-
-
-
 **Conclusion:**
 
 
 
----
+------------------------------------------------------------------------
 
 ## Exercise 10
 
 Run the appropriate hypothesis test, calculate the p-value, and interpret the results in context of the data and the hypothesis test.
-```{r hypothesis-test-habit, eval = FALSE}
+```{r hypothesis-test-habit, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 
 # Calculate observed statistic
 obs_diff <- ncbirths_habitgiven %>%
@@ -469,13 +465,14 @@ null_dist_habit %>%
 **Interpretation:**
 
 
----
+------------------------------------------------------------------------
 
 ## Exercise 11
 
 Construct a 95% confidence interval for the difference between the average weights of babies born to smoking and non-smoking mothers.
-```{r ci-habit, eval = FALSE}
+```{r ci-habit, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 
 # Generate bootstrap distribution
 boot_dist_habit <- ncbirths_habitgiven %>%
@@ -508,23 +505,23 @@ We are 95% confident that
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 8-11", and push your changes.**
 
----
+------------------------------------------------------------------------
 
 ## Part 3: Baby Weight vs. Mother's Age
 
-In this portion of the analysis we focus on two variables. The first one is `maturemom`.
+In this portion of the analysis we focus on two variables. The first one is `mature`, which classifies mothers as `"mature mom"` or `"younger mom"`.
 
 ## Exercise 12
 
 First, a non-inference task: Determine the age cutoff for younger and mature mothers. Use a method of your choice, and explain how your method works.
 
-**Explore the maturemom variable:**
-```{r explore-maturemom, eval = FALSE}
+**Explore the `mature` variable:**
+```{r explore-mature, eval = FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
 
-# Look at the relationship between age and maturemom
+# Look at the relationship between age and mature
 ncbirths %>%
-  group_by(maturemom) %>%
+  group_by(mature) %>%
   summarise(
     min_age = min(mage, na.rm = TRUE),
     max_age = max(mage, na.rm = TRUE)
@@ -533,7 +530,7 @@ ncbirths %>%
 # Or look at specific ages
 ncbirths %>%
   filter(mage >= 34, mage <= 36) %>%
-  count(mage, maturemom)
+  count(mage, mature)
 ```
 
 **The age cutoff is:** _____ years
@@ -544,7 +541,7 @@ ncbirths %>%
 
 The other variable of interest is `lowbirthweight`.
 
----
+------------------------------------------------------------------------
 
 ## Exercise 13
 
@@ -558,18 +555,13 @@ Conduct a hypothesis test evaluating whether the proportion of low birth weight 
 
 **Note:** This is a **one-sided test** because we're testing if mature mothers have a *higher* proportion.
 
-**Verify conditions:**
+**Verify conditions:** (see Exercise 4 for the general reasoning on independence and random sampling — check whether anything is different here, then confirm sample size below)
 
-**Independence:**
-
-___________________________________________________________________________
-
-**Sample size:**
-```{r check-maturemom-counts, eval = FALSE}
+```{r check-mature-counts, eval = FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
 ncbirths %>%
-  filter(!is.na(maturemom), !is.na(lowbirthweight)) %>%
-  count(maturemom)
+  filter(!is.na(mature), !is.na(lowbirthweight)) %>%
+  count(mature)
 ```
 
 **Are conditions satisfied?**
@@ -580,8 +572,8 @@ ncbirths %>%
 ```{r observed-proportions, eval = FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
 ncbirths %>%
-  filter(!is.na(maturemom), !is.na(lowbirthweight)) %>%
-  group_by(maturemom) %>%
+  filter(!is.na(mature), !is.na(lowbirthweight)) %>%
+  group_by(mature) %>%
   summarise(prop_low = mean(lowbirthweight == "low"))
 ```
 
@@ -591,21 +583,22 @@ Younger mothers: _____
 Mature mothers: _____
 
 **Run the hypothesis test:**
-```{r hypothesis-test-mature, eval = FALSE}
+```{r hypothesis-test-mature, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 
 # Create filtered dataset
 ncbirths_mature <- ncbirths %>%
-  filter(!is.na(maturemom), !is.na(lowbirthweight))
+  filter(!is.na(mature), !is.na(lowbirthweight))
 
 # Calculate observed statistic
 obs_diff_prop <- ncbirths_mature %>%
-  specify(lowbirthweight ~ maturemom, success = "low") %>%
+  specify(lowbirthweight ~ mature, success = "low") %>%
   calculate(stat = "diff in props", order = c("mature mom", "younger mom"))
 
 # Generate null distribution
 null_dist_mature <- ncbirths_mature %>%
-  specify(lowbirthweight ~ maturemom, success = "low") %>%
+  specify(lowbirthweight ~ mature, success = "low") %>%
   hypothesize(null = "independence") %>%
   generate(reps = 10000, type = "permute") %>%
   calculate(stat = "diff in props", order = c("mature mom", "younger mom"))
@@ -634,12 +627,13 @@ p_value
 
 
 **If significant, construct a 95% confidence interval:**
-```{r ci-mature, eval = FALSE}
+```{r ci-mature, eval = FALSE, fig.alt = "___"}
 # Remember to change eval=FALSE to eval=TRUE!
+# Remember to fill in fig.alt above with a short description of what this plot shows!
 # Only run if you found a significant difference
 
 boot_dist_mature <- ncbirths_mature %>%
-  specify(lowbirthweight ~ maturemom, success = "low") %>%
+  specify(lowbirthweight ~ mature, success = "low") %>%
   generate(reps = 10000, type = "bootstrap") %>%
   calculate(stat = "diff in props", order = c("mature mom", "younger mom"))
 
@@ -658,7 +652,7 @@ ci_mature
 
 🧶 ✅ ⬆️ **Knit, commit with message "Completed Exercises 12-13", and push your changes.**
 
----
+------------------------------------------------------------------------
 
 ## Common Errors and Troubleshooting
 
@@ -667,6 +661,7 @@ ci_mature
 - **Error: "could not find function 'specify'"** → Load tidymodels: `library(tidymodels)`
 - **Different results each time** → Make sure you set a seed at the beginning
 - **Error: "success level not found"** → Check spelling of your success level (e.g., "low" vs "Low")
+- **Error: "object 'mature' not found" or "object 'maturemom' not found"** → The column in this dataset is named `mature` (its values are `"mature mom"` and `"younger mom"`). Double-check you're referencing the column name, not one of its values.
 
 **Hypothesis test errors:**
 
@@ -689,7 +684,7 @@ ci_mature
 - **Code chunk not running** → Change `eval=FALSE` to `eval=TRUE`
 - **NA values causing problems** → Filter them out with `filter(!is.na(variable))`
 
----
+------------------------------------------------------------------------
 
 ## Reflection
 
@@ -709,7 +704,7 @@ ci_mature
 - P-value < α means statistically significant
 - Confidence intervals give more information than hypothesis tests
 
----
+------------------------------------------------------------------------
 
 **To submit to Canvas:**
 
