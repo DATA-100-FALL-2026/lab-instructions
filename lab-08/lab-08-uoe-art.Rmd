@@ -1,7 +1,7 @@
 ---
 title: "Lab 08 - University of Edinburgh Art Collection"
 author: "Your Name"
-output: 
+output:
   tufte::tufte_html:
     css: ../lab.css
     tufte_variant: "envisioned"
@@ -33,11 +33,14 @@ In this lab we'll scrape data on art pieces in the [Edinburgh College of Art col
 
 **Estimated time:** 120-150 minutes
 
+```{marginfigure}
+Why local files instead of a live scrape? collections.ed.ac.uk blocks automated requests coming from cloud servers - the same kind of block you may have run into with Ballotpedia or IMDB in other assignments. Since JupyterHub/RStudio runs on cloud servers, the 15 pages you need are already saved as local HTML files in your repo's `data-raw` folder, and the scripts below read from those instead of the live site. Everything else about the process - SelectorGadget, CSS selectors, `html_element()`, iteration with `map_dfr()` - works exactly the same; the only thing that changes is what you hand `read_html()` (a file path instead of a web address).
+```
+
 ## Learning Goals
 
 By the end of this lab, you will be able to:
 
-- Check if web scraping is allowed using `robotstxt`
 - Scrape data from web pages using the `rvest` package
 - Use SelectorGadget to identify CSS selectors
 - Write custom functions in R
@@ -67,7 +70,7 @@ knitr::include_graphics("img/selectorgadget.png")
 - **Chrome (recommended):** [Install here](https://chrome.google.com/webstore/detail/selectorgadget/mhjhnkcfbdhnjickkkdbjoemdmbfginb)
 - **Firefox:** [Install here](https://addons.mozilla.org/en-US/firefox/addon/chropath-for-firefox)
 
-After installation, you should see the SelectorGadget icon next to your browser's search bar.
+After installation, you should see the SelectorGadget icon next to your browser's search bar. SelectorGadget works just as well pointed at a local HTML file opened in your browser as it does on a live page - that's how you'll use it for this lab.
 
 ---
 
@@ -88,7 +91,8 @@ After installation, you should see the SelectorGadget icon next to your browser'
 **Here's the organization of your repo:**
 ```
 |-data
-| 
+|-data-raw                        # 15 pre-saved HTML pages (see note above)
+|
 |-lab-08-uoe-art.Rmd              # YOU ARE HERE (for analysis)
 |-lab-08-uoe-art.Rproj
 |
@@ -116,8 +120,9 @@ Navigate to your forked `lab-instructions` repository in JupyterHub and open the
 Before proceeding:
 
 Step 1. Verify you have the `scripts` folder with three .R files
-Step 2. Verify you have this `lab-08-uoe-art.Rmd` file
-Step 3. Check that the Git pane shows YOUR username (not the course organization)
+Step 2. Verify you have a `data-raw` folder containing 15 saved `.html` files (`uoe-art-offset-0.html` through `uoe-art-offset-140.html`)
+Step 3. Verify you have this `lab-08-uoe-art.Rmd` file
+Step 4. Check that the Git pane shows YOUR username (not the course organization)
 
 ## Warm Up
 
@@ -139,39 +144,23 @@ Before we start scraping, let's talk about ethics and best practices:
 
 **Web Scraping Ethics:**
 
-- Always check if scraping is allowed (we'll do this with `robotstxt`)
+- Always check if scraping is allowed before scraping a live site
 - Don't overwhelm servers with too many rapid requests
 - Respect the website's terms of service
 - Give credit to data sources
 - Be aware that website structure can change
 
-**For this lab:** The University of Edinburgh allows scraping of this public collection, but we should still be respectful. We'll add delays between requests to avoid overwhelming their server, and we'll scrape a generous but reasonable sample of pages rather than the entire collection.
+**For this lab:** The University of Edinburgh allows scraping of this public collection, and the same principles applied when the 15 pages you're working with were originally saved - a generous but reasonable sample of pages rather than the entire collection, fetched with a polite delay between requests.
 
 ## Packages
 
 The packages we need for this lab are:
 
 - **tidyverse:** Data wrangling and visualization
-- **robotstxt:** Check if scraping is allowed
 - **rvest:** Web scraping functions
 - **skimr:** Summary statistics (for analysis section)
 
 These packages are already installed. They're loaded in the setup chunk at the top of this file.
-
-## Check Permissions
-
-Let's verify that we're allowed to scrape this website:
-```{r paths-allowed, warning=FALSE, eval = TRUE}
-library(robotstxt)
-library(rvest)
-library(tidyverse)
-
-paths_allowed("https://collections.ed.ac.uk/art")
-```
-
-**What this means:** If the result is `TRUE`, we have permission to scrape. If `FALSE`, we should not proceed.
-
-✅ **Verified!** We can proceed with scraping.
 
 ---
 
@@ -324,24 +313,25 @@ ggplot(data = uoe_art, aes(x = ___)) +
 
 ## Exercise 12
 
-Your histogram from Exercise 11 probably shows a small cluster of pieces that look much older than the rest of the collection. Before assuming this is a data error, let's investigate it - not every extreme value in a dataset is a mistake!
+With a smaller sample of 150 pieces, your histogram from Exercise 11 may or may not show a distinct cluster of pieces that look much older than the rest - that's fine either way, and depends on which 15 pages ended up in your sample.
 
 **Filter for the oldest pieces in the collection:**
 ```{r find-old-pieces, eval = FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
 # Pick a reasonable cutoff based on where your histogram's tail begins
+# (or just look at the handful of oldest rows if there's no obvious gap)
 uoe_art %>%
-  filter(year < ___) %>%
-  arrange(year)
+  arrange(year) %>%
+  head(10)
 ```
 
-**Visit the links for two or three of these oldest pieces on the art collection website.**
+**Visit the links for two or three of the oldest pieces in your data.**
 
-**Are these data errors, or are they legitimate pieces? What are they?** (Hint: look closely at the titles - many of them describe the same kind of object.)
+**What are they?** (Hint: look closely at the titles - some older pieces in this collection describe a kind of object you might not expect from a 20th/21st-century art college's holdings.)
 
 
 
-**Why would a 20th/21st-century art college's collection contain objects with dates this old?**
+**Does your sample show a distinct old-pieces cluster, or are the oldest items just scattered in with everything else?** Either answer is a legitimate finding here - say which you see and why a smaller sample might behave differently than a larger one would.
 
 
 
@@ -351,7 +341,7 @@ uoe_art %>%
 
 ## Exercise 13
 
-Who is the most commonly featured artist in the collection? Do you know them? Any guess as to why the university has so many pieces from them?
+Who is the most commonly featured artist in your sample? Do you know them? Any guess as to why the university has pieces from them?
 ```{r most-common-artist, eval = FALSE}
 # Remember to change eval=FALSE to eval=TRUE!
 uoe_art %>%
@@ -359,15 +349,15 @@ uoe_art %>%
   head(10)
 ```
 
-**Most common artist:** 
+**Most common artist:**
 
-**Number of pieces:** 
+**Number of pieces:**
 
-**Do you know this artist?** 
+**Do you know this artist?**
 
 
 
-**Why might the university have so many of their pieces?**
+**Why might the university have pieces from them?**
 
 
 
@@ -405,8 +395,8 @@ uoe_art %>%
 **Web scraping errors (from scripts):**
 
 - **Error: "could not find function"** → Make sure you loaded rvest: `library(rvest)`
-- **HTTP errors (403, 404, etc.)** → The website may be down or blocking requests
-- **Different number of elements** → Website structure may have changed since lab was written
+- **"cannot open file" / file not found** → Double-check the file path - it should point to a file inside `data-raw/` (e.g. `"data-raw/uoe-art-offset-10.html"`), and the file name needs to match exactly, including the offset number
+- **Different number of elements** → Website structure may have changed since the pages were saved
 - **Function returns wrong number of rows** → Check that CSS selectors are correct
 
 **Data cleaning errors:**
@@ -434,7 +424,7 @@ uoe_art %>%
 
 ---
 
-**Final check:** 
+**Final check:**
 - ✅ All three R scripts completed and committed
 - ✅ CSV file in data folder
 - ✅ All exercises in this .Rmd completed
