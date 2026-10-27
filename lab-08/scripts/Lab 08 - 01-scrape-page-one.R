@@ -4,19 +4,28 @@
 # ============================================================
 # Fill in each blank marked with ___
 # ============================================================
+#
+# NOTE: collections.ed.ac.uk blocks automated requests coming from
+# cloud servers (the same kind of block you may have run into with
+# Ballotpedia or IMDB in other assignments). Since JupyterHub/RStudio
+# runs on cloud servers, we've pre-saved the pages you need as local
+# HTML files in the data-raw/ folder of your repo. read_html() works
+# exactly the same way on a local file path as it does on a URL -
+# everything else about scraping (CSS selectors, html_element(),
+# html_text2(), html_attr()) works identically either way.
 
 # 1. Load packages ------------------------------------------
 library(tidyverse)
 library(rvest)
 
 # 2. Read the HTML page --------------------------------------
-# Hint: use the Edinburgh College of Art collection URL linked
-# in the Introduction section of the Rmd
+# Hint: use the first saved page - data-raw/uoe-art-offset-0.html
 page <- read_html("___")
 
 # 3. Select each art piece's "container" on the page -----------
-# Hint: use SelectorGadget on the page. Each piece is wrapped
-# in a <div class="item-div">
+# Hint: use SelectorGadget on the page (open the saved HTML file
+# itself in Chrome and point SelectorGadget at it). Each piece is
+# wrapped in a <div class="item-div">
 items <- page %>%
   html_elements("___")
 
